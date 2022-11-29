@@ -1,0 +1,8 @@
+{
+	"azureFunctions.deploySubpath": "Challenge_2/Resources/TollBooth/TollBooth/bin/Release/net6.0/publish",
+	"azureFunctions.projectLanguage": "C#",
+	"azureFunctions.projectRuntime": "~4",
+	"debug.internalConsoleOptions": "neverOpen",
+	"azureFunctions.projectSubpath": "Challenge_2/Resources/TollBooth/TollBooth",
+	"azureFunctions.preDeployTask": "publish (functions)"
+}
