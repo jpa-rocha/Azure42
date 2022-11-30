@@ -6,13 +6,39 @@ var storageName = 'stor${rand_string}'
 ])
 param locations string
 
+@description('Enter True for Standard_GRS, False for Standard_LRS')
+@allowed ([
+  true
+  false
+])
+param globalRedundancy bool
+
+
 resource ATeamStorage 'Microsoft.Storage/storageAccounts@2021-02-01' = {
-  name: storageName
+  name: 'krkuryurkkrkkrykyu'
   location: locations
   sku: {
-    name: 'Standard_LRS'
+    name: globalRedundancy ? 'Standard_GRS' : 'Standard_LRS' 
   }
   kind: 'StorageV2'
 }
 
-output ATeamStorage string = ATeamStorage.id
+resource ATeamblobService 'Microsoft.Storage/storageAccounts/blobServices@2022-05-01' = { 
+  parent: ATeamStorage
+  name: 'default'
+}
+
+
+/* resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-05-01' = {
+  parent: ATeamblobService
+  name: 'default'
+  properties: {
+    publicAccess: 'None'
+    metadata: {}
+  }
+} */
+
+
+output ATeamStorageId string = ATeamStorage.id
+output ATeamStorageName string = ATeamStorage.name
+output ATeamBlobServiceUrl string = ATeamStorage.properties.primaryEndpoints.blob
