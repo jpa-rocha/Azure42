@@ -13,10 +13,11 @@ module ATeamStorageModule '../src/main.bicep' = {
 }
 
 var path = ATeamStorageModule.name
-param names array
-resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-05-01' = [for name in names :{
+param min int
+param count int
+resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-05-01' = [for i in range(min, count) :{
 /*   parent: ATeamblobService */
-  name: '${path}/default/${name}'
+  name: '${path}/default/container${i}'
   properties: {
   publicAccess: 'None'
    metadata: {}
