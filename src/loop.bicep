@@ -1,17 +1,29 @@
-param containers array
-param storageLocation string = 'westeurope'
-
-
-module storageModule 'main.bicep' = {
+@allowed ([
+  'westeurope'
+  'eastus'
+])
+param locations string
+@description('Enter True for Standard_GRS, False for Standard_LRS')
+@allowed ([
+  true
+  false
+])
+param globalRedundancy bool
+module ATeamStorageModule '../src/main.bicep' = {
+  name: 'krkuryurkkrkkrykyu'
   params: {
-    name: 
-    globalRedundancy: false
-    storageLocation: storageLocation
+    globalRedundancy: globalRedundancy
+    locations: locations
   }
 }
 
-var moduleName = storageModule.outputs.storageAccountName
-
-resource storageArray 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-05-01' = [for names in containers: {
-  name: '${moduleName}/default/${names}'
+var path = ATeamStorageModule.name
+param count int
+resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-05-01' = [for i in range(0, count) :{
+/*   parent: ATeamblobService */
+  name: '${path}/default/container${i}'
+  properties: {
+  publicAccess: 'None'
+   metadata: {}
+  }
 }]
