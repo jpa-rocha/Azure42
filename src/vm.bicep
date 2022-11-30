@@ -1,10 +1,15 @@
 // var rand_string = uniqueString(resourceGroup().id)
+//var rand_string = uniqueString(resourceGroup().id)
+//var storageName = 'stor${rand_string}'
+resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
+  name: 'ateam-rg-KeyVault'
+}
 
 @description('The name of you Virtual Machine.')
-param vmName string = uniqueString(resourceGroup().id)
+param vmName string = 'VM${uniqueString(resourceGroup().id)}'
 
 @description('Username for the Virtual Machine.')
-param adminUsername string = 'ATeam'
+param adminUsername string = 'ateam'
 
 
 @description('Type of authentication to use on the Virtual Machine. SSH key is recommended.')
