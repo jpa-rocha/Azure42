@@ -31,14 +31,6 @@ resource ATeamblobService 'Microsoft.Storage/storageAccounts/blobServices@2022-0
 }
 
 
-/* resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-05-01' = {
-  parent: ATeamblobService
-  name: 'default'
-  properties: {
-    publicAccess: 'None'
-    metadata: {}
-  }
-} */
 
 
 output ATeamStorageId string = ATeamStorage.id
