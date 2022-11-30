@@ -19,7 +19,7 @@ module ATeamStorageModule '../src/main.bicep' = {
   params: {
     globalRedundancy: globalRedundancy
     locations: locations
-    password: keyWord.getSecret('adminPassword')
+    password: keyVault.getSecret('adminPassword')
   }
 }
 
@@ -33,3 +33,7 @@ resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@20
    metadata: {}
   }
 }]
+
+resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
+  name: 'ateam-rg-KeyVault'
+}
