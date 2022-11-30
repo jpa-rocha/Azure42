@@ -31,11 +31,13 @@ namespace TollBooth
             {
                 // TODO 3: Modify send method to include the proper eventType name value for saving plate data.
                 // COMPLETE: await Send(...);
+				await Send("get", "License Plates Sent", data);
             }
             else
             {
                 // TODO 4: Modify send method to include the proper eventType name value for queuing plate for manual review.
                 // COMPLETE: await Send(...);
+				await Send("get", "License Plate data not found", null);
             }
         }
 
