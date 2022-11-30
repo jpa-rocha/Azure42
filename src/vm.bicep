@@ -70,7 +70,9 @@ var linuxConfiguration = {
 resource nic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
   name: networkInterfaceName
   location: location
+  kind: 'Regular'
   properties: {
+    
     ipConfigurations: [
       {
         name: 'ipconfig1'
@@ -79,6 +81,7 @@ resource nic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
             id: subnet.id
           }
           privateIPAllocationMethod: 'Dynamic'
+          privateIPAddress: '10.1.0.4'
           publicIPAddress: {
             id: publicIP.id
           }
@@ -140,6 +143,7 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2022-05-01' = {
   location: location
   sku: {
     name: 'Basic'
+    tier: 'Regional'
   }
   properties: {
     publicIPAllocationMethod: 'Dynamic'
