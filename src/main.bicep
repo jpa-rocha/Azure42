@@ -13,6 +13,8 @@ param locations string
 ])
 param globalRedundancy bool
 
+@secure()
+param password string
 
 resource ATeamStorage 'Microsoft.Storage/storageAccounts@2021-02-01' = {
   name: 'krkuryurkkrkkrykyu'
