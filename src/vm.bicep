@@ -1,10 +1,3 @@
-// var rand_string = uniqueString(resourceGroup().id)
-//var rand_string = uniqueString(resourceGroup().id)
-//var storageName = 'stor${rand_string}'
-resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
-  name: 'ateam-rg-KeyVault'
-}
-
 @description('The name of you Virtual Machine.')
 param vmName string = 'VM${uniqueString(resourceGroup().id)}'
 
