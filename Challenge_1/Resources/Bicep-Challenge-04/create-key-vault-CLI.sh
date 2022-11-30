@@ -6,8 +6,8 @@
 
 #Step 1: Use a name with all characters LOWERCASE.  Your initials would work well if working in the same sub as others. 
 # Pick a location that is the same region where you are deploying your template!
-declare iacHackName="wth-iac"
-declare location="eastus"
+declare iacHackName="ateam-rg"
+declare location="westeurope"
 
 #Step 2: Create ResourceGroup after updating the location to one of your choice.
 #Create a new Resource Group with YOUR name!
