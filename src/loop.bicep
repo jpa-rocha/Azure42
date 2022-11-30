@@ -3,6 +3,11 @@
   'eastus'
 ])
 param locations string
+@description('Enter True for Standard_GRS, False for Standard_LRS')
+@allowed ([
+  true
+  false
+])
 param globalRedundancy bool
 module ATeamStorageModule '../src/main.bicep' = {
   name: 'krkuryurkkrkkrykyu'

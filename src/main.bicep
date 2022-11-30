@@ -1,5 +1,5 @@
 var rand_string = uniqueString(resourceGroup().id)
-var storageName = 'stor${rand_string}'
+//var storageName = 'stor${rand_string}'
 @allowed ([
   'westeurope'
   'eastus'
