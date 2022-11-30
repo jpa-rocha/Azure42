@@ -10,11 +10,7 @@ param locations string
 ])
 param globalRedundancy bool
 
-resource keyWord 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
-  name: 'ateam-rg-KeyVault'
-}
-
-module ATeamStorageModule '../src/main.bicep' = {
+module ATeamStorageModule '../src/storage.bicep' = {
   name: 'krkuryurkkrkkrykyu'
   params: {
     globalRedundancy: globalRedundancy
@@ -22,13 +18,13 @@ module ATeamStorageModule '../src/main.bicep' = {
   }
 }
 
-module ATeamVMModule 'vm.bicep' = {
+module ATeamVMModule '../src/vm.bicep' = {
   name: 'VMkrkuryurkkrkkrykyu'
   params: {
-    name: 'VMkrkuryurkkrkkrykyu'
+    vmName: 'VMkrkuryurkkrkkrykyu'
     location: locations
-    adminName: 'admin'
-    password: keyVault.getSecret('adminPassword')
+    adminUsername: 'admin'
+    adminPasswordOrKey: keyVault.getSecret('adminPassword')
   }
 }
 
