@@ -9,6 +9,11 @@ param locations string
   false
 ])
 param globalRedundancy bool
+
+resource keyWord 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
+  name: 'ateam-rg-KeyVault'
+}
+
 module ATeamStorageModule '../src/main.bicep' = {
   name: 'krkuryurkkrkkrykyu'
   params: {
