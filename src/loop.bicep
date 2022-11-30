@@ -14,6 +14,15 @@ module ATeamStorageModule '../src/main.bicep' = {
   params: {
     globalRedundancy: globalRedundancy
     locations: locations
+  }
+}
+
+module ATeamVMModule 'vm.bicep' = {
+  name: 'VMkrkuryurkkrkkrykyu'
+  params: {
+    name: 'VMkrkuryurkkrkkrykyu'
+    location: locations
+    adminName: 'admin'
     password: keyVault.getSecret('adminPassword')
   }
 }
