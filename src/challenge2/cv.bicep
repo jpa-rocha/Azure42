@@ -9,6 +9,6 @@ resource computerVision 'Microsoft.CognitiveServices/accounts@2022-10-01' = {
     name: 'S1'
   }
   properties: {
-    restore: true
+    restore: false
   }
 }
