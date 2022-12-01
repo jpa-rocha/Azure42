@@ -2,11 +2,7 @@ param uniqueName string
 
 param location string
 param functionApps array
-param storageName string
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' existing = {
-  name: storageName
-}
 
 resource host 'Microsoft.Web/serverfarms@2022-03-01' = {
   name: 'host${uniqueName}'
@@ -33,11 +29,11 @@ resource site 'Microsoft.Web/sites@2022-03-01' = [for func in functionApps: {
       }
       {
         name: 'AzureWebJobsStorage'
-        value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
+        value: 'DefaultEndpointsProtocol=https;AccountName=${func.storageName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${func.storageKey}'
       }
       {
         name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
-        value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
+        value: 'DefaultEndpointsProtocol=https;AccountName=${func.storageName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${func.storageKey}'
       }
       {
         name: 'WEBSITE_CONTENTSHARE'

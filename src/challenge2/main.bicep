@@ -1,8 +1,10 @@
-var uniqueName = uniqueString(resourceGroup().id)
+param uniqueName string = uniqueString(resourceGroup().id)
 
 param location string = resourceGroup().location
 
 param tenantID string = subscription().tenantId
+
+param functionAccounts array = ['sa${uniqueName}', 'se${uniqueName}']
 
 var keyVaultID = 'kv${uniqueName}'
 var cvName = 'cv${uniqueName}'
@@ -15,6 +17,7 @@ module storage 'storage.bicep' = {
     location: location
     accountName: 'sto${uniqueName}'
     containerNames: ['images', 'export']
+    functionAccountNames: functionAccounts
   }
 }
 
@@ -34,12 +37,15 @@ module functions 'functions.bicep' = {
     functionApps: [{
       name: 'App${uniqueName}'
       runtime: 'dotnet'
-      }
-      {
-        name: 'Events${uniqueName}'
-        runtime: 'nodejs'
-      }]
-    storageName: storage.name
+      storageName: funcStorage[0].name
+      storageKey: funcStorage[0].listKeys().keys[0].value
+    }
+    {
+      name: 'Events${uniqueName}'
+      runtime: 'nodejs'
+      storageName: funcStorage[1].name
+      storageKey: funcStorage[1].listKeys().keys[0].value
+    }]
   }
 }
 
@@ -95,3 +101,7 @@ resource cv 'Microsoft.CognitiveServices/accounts@2022-10-01' existing = {
 resource db 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' existing = {
   name: dbName
 }
+
+resource funcStorage 'Microsoft.Storage/storageAccounts@2022-05-01' existing = [for name in functionAccounts: {
+  name: name
+}]
