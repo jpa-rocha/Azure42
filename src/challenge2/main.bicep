@@ -31,7 +31,14 @@ module functions 'functions.bicep' = {
   params: {
     uniqueName: uniqueName
     location: location
-    functionApps: ['App${uniqueName}', 'Events${uniqueName}']
+    functionApps: [{
+      name: 'App${uniqueName}'
+      runtime: 'dotnet'
+      }
+      {
+        name: 'Events${uniqueName}'
+        runtime: 'nodejs'
+      }]
     storageName: storage.name
   }
 }

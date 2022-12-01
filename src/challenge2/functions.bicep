@@ -17,8 +17,8 @@ resource host 'Microsoft.Web/serverfarms@2022-03-01' = {
   }
 }
 
-resource site 'Microsoft.Web/sites@2022-03-01' = [for name in functionApps: {
-  name: name
+resource site 'Microsoft.Web/sites@2022-03-01' = [for func in functionApps: {
+  name: func.name
   location: location
   kind: 'functionapp'
   properties: {
@@ -29,7 +29,7 @@ resource site 'Microsoft.Web/sites@2022-03-01' = [for name in functionApps: {
       appSettings: [
       {
         name: 'FUNCTIONS_WORKER_RUNTIME'
-        value: 'dotnet'
+        value: func.runtime
       }
       {
         name: 'AzureWebJobsStorage'
